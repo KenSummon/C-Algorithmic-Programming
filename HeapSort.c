@@ -46,6 +46,50 @@ heap[r]=temp;}
 return;
 }
 
+
+void MaxHeapify(int heap[],int size)
+{
+for(int i=size/2-1;i>=0;i--)
+{int l=2*i+1,r=2*i+2;
+int temp;
+if(l<size)
+{
+if (heap[i]<heap[l])
+{temp=heap[i];
+heap[i]=heap[l];
+heap[l]=temp;}
+}
+if(r<size)
+{
+if (heap[i]<heap[r])
+{temp=heap[i];
+heap[i]=heap[r];
+heap[r]=temp;}
+}
+}
+
+for(int i=0;i<=size/2-1;i++)
+{int l=2*i+1,r=2*i+2;
+int temp;
+if(l<size)
+{
+if (heap[i]<heap[l])
+{temp=heap[i];
+heap[i]=heap[l];
+heap[l]=temp;}
+}
+if(r<size)
+{
+if (heap[i]<heap[r])
+{temp=heap[i];
+heap[i]=heap[r];
+heap[r]=temp;}
+}
+}
+return;
+}
+
+
 MinHeap add(MinHeap heap2,int addindex)
 {
 
@@ -75,6 +119,19 @@ MinHeap delete1(MinHeap heap2,int delindex)
     return heap2;
 }
 
+MinHeap HeapSort(MinHeap heap2)
+{
+    for (int i=heap2.size;i>0;i--)
+    {
+        MaxHeapify(heap2.arr,i);
+        int temp;
+        temp = heap2.arr[0];
+        heap2.arr[0]=heap2.arr[i-1];
+        heap2.arr[i-1]=temp;
+    }
+    return heap2;
+}
+
 int main()
 {
 MinHeap arrdata;
@@ -90,12 +147,14 @@ for(int i=0;i<n;i++)
 arrdata=add(arrdata,i);
 }
 
-arrdata=delete1(arrdata,2);
+arrdata=HeapSort(arrdata);
 
 for (int i=0; i<arrdata.size; ++i)
 {
     printf("%d ",arrdata.arr[i]);
 }
+
 return 0;
 }
+
 
